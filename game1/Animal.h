@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
-class Animal
+#include "Uncopyable.h"
+#include <memory>
+
+class Animal : private Uncopyable
 {
 	const static unsigned int info = 50;
 	enum
@@ -9,8 +12,11 @@ class Animal
 	};
 	unsigned int mIdentificationNumber;
 	std::vector<std::size_t> vec;
+	//std::shared_ptr<Person> shared;
 public:
 	Animal(const unsigned& num);
+
+
 
 	virtual void bark() = 0;
 

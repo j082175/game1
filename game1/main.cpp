@@ -1,67 +1,102 @@
 ﻿#include <iostream>
 #include <vector>
 #include "Person.h"
+#include <functional>
+
+//
+#include "LinkedList.h"
+#include <time.h>
+
 using namespace std;
 
-class A
-{
-	char* strA;
-public:
-	A(const char* str)
-	{
-		strA = new char[strlen(str) + 1];
-	}
+//class A
+//{
+//	char* strA;
+//public:
+//	A(const char* str)
+//	{
+//		strA = new char[strlen(str) + 1];
+//	}
+//
+//	virtual ~A()
+//	{
+//		cout << "~A" << endl;
+//		delete[] strA;
+//	}
+//};
+//
+//class B : public A
+//{
+//	char* strB;
+//public:
+//	B(const char* str1,const char* str2)
+//		:A(str1)
+//	{
+//		strB = new char[strlen(str2) + 1];
+//	}
+//
+//	~B()
+//	{
+//		cout << "~B" << endl;
+//		delete[] strB;
+//	}
+//};
 
-	virtual ~A()
-	{
-		cout << "~A" << endl;
-		delete[] strA;
-	}
+struct _tagData
+{
+	int iData;
+	char cName[20];
 };
 
-class B : public A
+bool DataSort(const _tagData& tSrc, const _tagData& tDest)
 {
-	char* strB;
-public:
-	B(const char* str1,const char* str2)
-		:A(str1)
-	{
-		strB = new char[strlen(str2) + 1];
-	}
-
-	~B()
-	{
-		cout << "~B" << endl;
-		delete[] strB;
-	}
-};
+	return tSrc.iData > tDest.iData;
+}
 
 int main()
 {
-	vector<shared_ptr<Animal>> vec;
-	vec.resize(10);
-	for (int i = 0; i < vec.size(); i++)
+	
+	CLinkedList<int> sl;
+	for (int i = 0; i < 100; i++)
 	{
-		vec[i] = make_shared<Person>(Person(i));
-		//vec.push_back(make_shared<Person>(Person(i)));
+		sl.push_back(i);
 	}
-	for (int i = 0; i < vec.size(); i++)
+	cout << sl.size();
+
+	CLinkedList<int>::iterator iter;
+	for (iter = sl.begin(); iter != sl.end(); iter++)
 	{
-		vec[i].get()->getIdNum();
-		vec[i].get()->getInfo();
+		cout << *iter << endl;
 	}
 
-	auto ani = make_shared<Person>(Person(1));
-	auto ani2 = shared_ptr<Person>(new Person(22));
+	CLinkedList<int>::reverse_iterator rIter;
+	for (rIter = sl.rbegin(); rIter != sl.rend(); rIter++)
+	{
+		cout << *rIter << endl;
+	}
 
-	shared_ptr<Animal> const ani3 = make_shared<Person>(Person(3));
-	shared_ptr<const Animal> ani4 = make_shared<Person>(Person(4));
-	const Animal* ani5 = new Person(44);
-	ani5->bark();
-	(*ani4).bark();
-	ani3->bark();
+	CLinkedList<_tagData> dataList;
 
-	std::cout << (*ani4)[1];
-	(*ani4)[0] = 1;
-	//std::cout << (*ani2)[0];
+	srand((unsigned int)time(0));
+
+	cout << "-------------------------------" << endl;
+
+	for (int i = 0; i < 10; i++)
+	{
+		_tagData tData{};
+		tData.iData = rand() % 100;
+
+		dataList.push_back(tData);
+
+		cout << tData.iData << endl;
+	}
+
+	dataList.sort(DataSort);
+
+	CLinkedList<_tagData>::iterator iterD;
+	
+	for (iterD = dataList.begin(); iterD != dataList.end(); iterD++)
+	{
+		cout << (*iterD).iData << endl;
+	}
 }
