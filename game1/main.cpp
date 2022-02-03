@@ -2,10 +2,11 @@
 #include <vector>
 #include "Person.h"
 #include <functional>
-
+#include <assert.h>
 //
-#include "LinkedList.h"
+
 #include <time.h>
+#include "SinglyLinkedListEx.h"
 
 using namespace std;
 
@@ -42,61 +43,38 @@ using namespace std;
 //	}
 //};
 
-struct _tagData
+
+
+struct _data
 {
-	int iData;
-	char cName[20];
+	int mData;
+	std::string mString;
 };
 
-bool DataSort(const _tagData& tSrc, const _tagData& tDest)
+bool sort(const _data& lhs, const _data& rhs)
 {
-	return tSrc.iData > tDest.iData;
+	return lhs.mData < rhs.mData;
 }
 
 int main()
 {
-	
-	CLinkedList<int> sl;
-	for (int i = 0; i < 100; i++)
-	{
-		sl.push_back(i);
-	}
-	cout << sl.size();
+	SinglyLinkedList<_data> sl;
 
-	CLinkedList<int>::iterator iter;
-	for (iter = sl.begin(); iter != sl.end(); iter++)
+	srand(static_cast<unsigned int>(time(0)));
+	for (int i = 0; i < 10; i++)
 	{
-		cout << *iter << endl;
+		_data data{};
+		data.mData = rand() % 100;
+		sl.push_back(data);
+		cout << data.mData << endl;
 	}
 
-	CLinkedList<int>::reverse_iterator rIter;
-	for (rIter = sl.rbegin(); rIter != sl.rend(); rIter++)
-	{
-		cout << *rIter << endl;
-	}
+	sl.sort(sort);
 
-	CLinkedList<_tagData> dataList;
-
-	srand((unsigned int)time(0));
-
-	cout << "-------------------------------" << endl;
+	cout << "---------------------" << endl;
 
 	for (int i = 0; i < 10; i++)
 	{
-		_tagData tData{};
-		tData.iData = rand() % 100;
-
-		dataList.push_back(tData);
-
-		cout << tData.iData << endl;
-	}
-
-	dataList.sort(DataSort);
-
-	CLinkedList<_tagData>::iterator iterD;
-	
-	for (iterD = dataList.begin(); iterD != dataList.end(); iterD++)
-	{
-		cout << (*iterD).iData << endl;
+		cout << sl.pop_back().mData << endl;
 	}
 }

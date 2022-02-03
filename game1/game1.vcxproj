@@ -155,6 +155,7 @@
     <ClInclude Include="Animal.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="SinglyLinkedListEx.h" />
     <ClInclude Include="Uncopyable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
