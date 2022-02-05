@@ -7,6 +7,8 @@
 
 #include <time.h>
 #include "SinglyLinkedListEx.h"
+#include "Stack.h"
+#include "Tree.h"
 
 using namespace std;
 
@@ -43,7 +45,14 @@ using namespace std;
 //	}
 //};
 
-
+int Factorial(const int& num)
+{
+	if (num == 1)
+	{
+		return 1;
+	}
+	return num * Factorial(num - 1);
+}
 
 struct _data
 {
@@ -58,23 +67,7 @@ bool sort(const _data& lhs, const _data& rhs)
 
 int main()
 {
-	SinglyLinkedList<_data> sl;
-
-	srand(static_cast<unsigned int>(time(0)));
-	for (int i = 0; i < 10; i++)
-	{
-		_data data{};
-		data.mData = rand() % 100;
-		sl.push_back(data);
-		cout << data.mData << endl;
-	}
-
-	sl.sort(sort);
-
-	cout << "---------------------" << endl;
-
-	for (int i = 0; i < 10; i++)
-	{
-		cout << sl.pop_back().mData << endl;
-	}
+	CTree<int, int> ct;
+	
+	
 }
